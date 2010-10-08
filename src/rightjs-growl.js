@@ -118,15 +118,17 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
     extend: {
       version: '0.1',
 
-      //EVENTS: $w('show hide send update'),
-
       Options: {
-        fadeInSpeed: 500,
-        fadeOutSpeed: 500,
+        fx: 'fade',
+        fxSpeed: 500,
         removeTimer: 4000,
         isSticky: false,
         usingTransparentPNG: false
       },
+
+      i18n: {
+        Close: 'Close'
+      }
     },
 
     /**
@@ -140,26 +142,58 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
       this.$super('growl', options);
       
       //sets up the growl
-      this.element = isElement(element) ? $(element) : $E('div', {class: 'notice'}).html(element); 
+      this.element = isElement(element) ? $(element) : $E('div', {class: 'notice'}).html(element).onClick(); 
       if(!this.options.isSticky) {
         this.element.addClass('not-sticky'); 
       }
 
+      //sets up the close button
+      this.close = $E('a', {class: 'close', 'href': '#close'}).html(Growl.i18n.Close).insertTo(this.element);
+
+      this.insert(this.element);
+
+      //sets up events
+      this.onClick(this._clicked)
+
       //sets up the growl container
-      this.container = $('growl-container');
-      if(!this.container) {
-        this.container = $E('div', {id: 'growl-container'});
-        this.container.insertTo(document.body);
+      if(!Growl.container) {
+        Growl.container = $E('div', {id: 'growl-container'}).insertTo(document.body);
       }
+
+      this._appear();
     },
 
    /**
-   * Shows the growl
-   *
-   * @return Growl this
-   */
-    show: function(){
-      this.element.insertTo(this.container).hide().show('fade', this.options.fadeInSpeed);
+    * Shows the growl
+    *
+    * @return Growl this
+    */
+    _appear: function(){
+      return this.insertTo(Growl.container).hide().show(this.options.fx, {duration: this.options.fxSpeed});
+    },
+
+    /**
+     * Hides and removes the growl
+     *
+     * @return Growl this
+     */
+    _disappear: function(){
+      return this.visible() ? 
+        this.hide(this.options.fx, {
+          duration: this.options.fxSpeed, 
+          onFinish: function(){this.element.remove();}
+        }) 
+        : this;
+    },
+
+    //protected
+
+    //handles the close event
+    _clicked: function(e) {
+      var target = e.target;
+      if(target == this.close) {
+        this._disappear();
+      }
     }
   });
 
@@ -176,7 +210,7 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
      * @return Growl object
      */
     growl: function(options) {
-      return new Growl(this, options).show();
+      return new Growl(this, options);
     }
   });
 
