@@ -137,34 +137,20 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
      * @return void
      */
     initialize: function(element, options) {
-      if(isElement(element)) {
-        this.element = $(element);
-      } else {
-        this.element = $E('div', {class: 'notice'}).html(element); 
-      }
-      console.log(this.element);
-
-      this
-        .$super('growl', options);
-
+      this.$super('growl', options);
+      
+      //sets up the growl
+      this.element = isElement(element) ? $(element) : $E('div', {class: 'notice'}).html(element); 
       if(!this.options.isSticky) {
         this.element.addClass('not-sticky'); 
       }
 
+      //sets up the growl container
       this.container = $('growl-container');
       if(!this.container) {
         this.container = $E('div', {id: 'growl-container'});
         this.container.insertTo(document.body);
       }
-      /*
-        .insert([
-          this.field   = new Input({type: this.options.type, name: this.options.name, 'class': 'field'}),
-          this.spinner = new Spinner(4),
-          this.submit  = new Input({type: 'submit', 'class': 'submit', value: InEdit.i18n.Save}),
-          this.cancel  = new Element('a', {'class': 'cancel', href: '#', html: InEdit.i18n.Cancel})
-        ])
-        .onClick(this.clicked)
-        */
     },
 
    /**
@@ -173,7 +159,7 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
    * @return Growl this
    */
     show: function(){
-      this.element.insertTo(this.container);
+      this.element.insertTo(this.container).hide().show('fade', this.options.fadeInSpeed);
     }
   });
 
