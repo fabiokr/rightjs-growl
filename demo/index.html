@@ -13,15 +13,13 @@
       <li><a href="#" class="sticky-growl">Show sticky growl</a></li>
     </ul>
     <script type="text/javascript">
-      $(document).onReady(function() {
-          $$('a.regular-growl').each('onClick', function(){
-            new Growl($E('div').html('<h3>I\'m not sticky</h3><p>So I\'ll disappear briefly!</p>'));
-          });
-
-          $$('a.sticky-growl').each('onClick', function(){
-            new Growl($E('div').html('<h3>I\'m sticky</h3><p>So I\'ll only disappear if you close me!</p>'), {sticky: true});
-          });
+      "a.regular-growl".onClick(function(e){
+        new Growl($E('div').html('<h3>I\'m not sticky</h3><p>So I\'ll disappear briefly!</p>'));
       });
+
+      "a.sticky-growl".onClick(function(){
+        new Growl($E('div').html('<h3>I\'m sticky</h3><p>So I\'ll only disappear if you close me!</p>'), {sticky: true});
+       }); 
     </script>
   </body>
 </html>
