@@ -38,5 +38,4 @@ The following options are available:
 
 ## Demo
 
-A demo is available on my website:
-(http://www.kreusch.com.br/demos/rightjs-growl/index.html)
+A demo is available on my website: http://www.kreusch.com.br/demos/rightjs-growl/index.html
