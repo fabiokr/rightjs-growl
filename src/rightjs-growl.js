@@ -213,16 +213,16 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
       this.$super('growl', options);
       
       //sets up the growl
-      this.content = isElement(content) ? $(content) : $E('div', {class: 'growl'}).html(content).onClick(); 
+      this.addClass('growl');
       if(!this.options.sticky) {
         this.addClass('not-sticky'); 
       }
-
-      this.insert(
-        this.content.insert(
-          this.close = new Button(Growl.i18n.Close, {title: Growl.i18n.Close, 'class': 'close'}), 'top'
-        )    
-      );
+      
+      this.insert([
+        this.close = new Button(Growl.i18n.Close, {title: Growl.i18n.Close, 'class': 'close'}),
+        this.content = $E('div', {class: 'content'}).html(content),
+        this.bottom = $E('div', {class: 'bottom'})
+      ]);
 
       //sets up events
       this.onClick(this._clicked)

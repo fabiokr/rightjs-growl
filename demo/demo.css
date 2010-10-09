@@ -1,0 +1,37 @@
+.growl {
+  position: relative;
+  width: 324px;
+}
+
+.growl h3 {
+  font-size: 1.1em;
+}
+
+.growl p {
+  font-size: 0.8em; 
+  line-height: 1.4em;
+  margin: 0 0 0 0;
+}
+
+.growl div.close {
+  position: absolute; 
+  top: 12px; 
+  right: 12px; 
+  display: block; 
+  width: 18px; 
+  height: 17px; 
+  text-indent: -9999px; 
+  background: url(growl-close.png) no-repeat 0 10px;
+}
+
+.growl div.content {
+  min-height: 50px;
+  padding: 22px 22px 0 22px;
+  background: url(growl-top.png) no-repeat left top;
+  color: #f9f9f9;
+}
+
+.growl div.bottom {
+  height: 22px;
+  background: url(growl-bottom.png) no-repeat left top;
+}
