@@ -36,3 +36,7 @@ The following options are available:
   - timer: the time in that a non-sticky Growl will disappear (in miliseconds, default is 4000)
   - sticky: if this is a sticky Growl, it will not automatically disappear (default is false)
 
+## Demo
+
+A demo is available on my website:
+<http://www.kreusch.com.br/demos/rightjs-growl/index.html>
