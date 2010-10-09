@@ -194,7 +194,7 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
       Options: {
         duration: 500,
         removeTimer: 4000,
-        isSticky: false
+        sticky: false
       },
 
       i18n: {
@@ -214,8 +214,8 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
       
       //sets up the growl
       this.content = isElement(content) ? $(content) : $E('div', {class: 'growl'}).html(content).onClick(); 
-      if(!this.options.isSticky) {
-        this.content.addClass('not-sticky'); 
+      if(!this.options.sticky) {
+        this.addClass('not-sticky'); 
       }
 
       this.insert(
@@ -230,8 +230,16 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
       //sets up the growl container
       if(!Growl.container) {
         Growl.container = $E('div', {id: 'growl-container'}).insertTo(document.body);
-      }
 
+        //Interval that checks the top not-sticky growl and make it disappear
+        Growl.container.disappearInterval = setInterval(function() {
+          var topGrowl = Growl.container.first('.not-sticky');
+          if(topGrowl && !defined(topGrowl.timeout)) {
+            topGrowl.timeout = setTimeout(function(){topGrowl._disappear()}, topGrowl.options.removeTimer);
+          }
+        }, 200);
+      }
+      
       this._appear();
     },
 
@@ -264,8 +272,6 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
         })
         : this;
     },
-
-    //protected
 
     //handles the close event
     _clicked: function(e) {
