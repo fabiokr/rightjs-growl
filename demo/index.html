@@ -15,11 +15,11 @@
     <script type="text/javascript">
       $(document).onReady(function() {
           $$('a.regular-growl').each('onClick', function(){
-            $E('div').html('<h3>I\'m not sticky</h3><p>So I\'ll disappear briefly!</p>').growl();
+            new Growl($E('div').html('<h3>I\'m not sticky</h3><p>So I\'ll disappear briefly!</p>'));
           });
 
           $$('a.sticky-growl').each('onClick', function(){
-            $E('div').html('<h3>I\'m sticky</h3><p>So I\'ll only disappear if you close me!</p>').growl({sticky: true}); 
+            new Growl($E('div').html('<h3>I\'m sticky</h3><p>So I\'ll only disappear if you close me!</p>'), {sticky: true});
           });
       });
     </script>
