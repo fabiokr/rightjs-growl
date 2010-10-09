@@ -193,7 +193,7 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
 
       Options: {
         duration: 500,
-        removeTimer: 4000,
+        timer: 4000,
         sticky: false
       },
 
@@ -235,7 +235,7 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
         Growl.container.disappearInterval = setInterval(function() {
           var topGrowl = Growl.container.first('.not-sticky');
           if(topGrowl && !defined(topGrowl.timeout)) {
-            topGrowl.timeout = setTimeout(function(){topGrowl._disappear()}, topGrowl.options.removeTimer);
+            topGrowl.timeout = setTimeout(function(){topGrowl._disappear()}, topGrowl.options.timer);
           }
         }, 200);
       }
