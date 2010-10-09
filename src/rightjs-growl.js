@@ -119,11 +119,9 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
       version: '0.1',
 
       Options: {
-        fx: 'fade',
-        fxSpeed: 500,
+        duration: 500,
         removeTimer: 4000,
-        isSticky: false,
-        usingTransparentPNG: false
+        isSticky: false
       },
 
       i18n: {
@@ -138,19 +136,19 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
      * @param Object options
      * @return void
      */
-    initialize: function(element, options) {
+    initialize: function(content, options) {
       this.$super('growl', options);
       
       //sets up the growl
-      this.element = isElement(element) ? $(element) : $E('div', {class: 'notice'}).html(element).onClick(); 
+      this.content = isElement(content) ? $(content) : $E('div', {class: 'growl'}).html(content).onClick(); 
       if(!this.options.isSticky) {
-        this.element.addClass('not-sticky'); 
+        this.content.addClass('not-sticky'); 
       }
 
       //sets up the close button
-      this.close = $E('a', {class: 'close', 'href': '#close'}).html(Growl.i18n.Close).insertTo(this.element);
+      this.close = $E('a', {class: 'close', 'href': '#close'}).html(Growl.i18n.Close).insertTo(this.content);
 
-      this.insert(this.element);
+      this.insert(this.content);
 
       //sets up events
       this.onClick(this._clicked)
@@ -169,7 +167,7 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
     * @return Growl this
     */
     _appear: function(){
-      return this.insertTo(Growl.container).hide().show(this.options.fx, {duration: this.options.fxSpeed});
+      return this.setStyle({opacity: 0}).insertTo(Growl.container).morph({opacity: 1}, {duration: this.options.duration});
     },
 
     /**
@@ -178,11 +176,18 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
      * @return Growl this
      */
     _disappear: function(){
-      return this.visible() ? 
-        this.hide(this.options.fx, {
-          duration: this.options.fxSpeed, 
-          onFinish: function(){this.element.remove();}
-        }) 
+      return this.visible() ?
+        //hides the growl
+        this.morph({opacity: 0}, {
+          duration: this.options.duration,
+          onFinish: function(){
+            //morphs the growl so that the growl under it goes up smoothly
+            this.element.morph({height: '0'}, {
+              duration: this.element.options.duration,
+              onFinish: function(){this.element.remove();}
+            });
+          }
+        })
         : this;
     },
 
