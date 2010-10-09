@@ -9,8 +9,19 @@
   </head>
   <body>
     <ul>
-      <li><a href="#" class="regular-growl" onclick="$E('div').html('<h3>I\'m not sticky</h3><p>So I\'ll disappear briefly!</p>').growl()">Show regular growl</a></li>
-      <li><a href="#" class="sticky-growl" onclick="$E('div').html('<h3>I\'m sticky</h3><p>So I\'ll only disappear if you close me!</p>').growl({sticky: true})">Show sticky growl</a></li>
+      <li><a href="#" class="regular-growl">Show regular growl</a></li>
+      <li><a href="#" class="sticky-growl">Show sticky growl</a></li>
     </ul>
+    <script type="text/javascript">
+      $(document).onReady(function() {
+          $$('a.regular-growl').each('onClick', function(){
+            $E('div').html('<h3>I\'m not sticky</h3><p>So I\'ll disappear briefly!</p>').growl();
+          });
+
+          $$('a.sticky-growl').each('onClick', function(){
+            $E('div').html('<h3>I\'m sticky</h3><p>So I\'ll only disappear if you close me!</p>').growl({sticky: true}); 
+          });
+      });
+    </script>
   </body>
 </html>
