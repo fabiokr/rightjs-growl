@@ -5,14 +5,20 @@
     <title>RightJS Growl Example</title>
     <link href="demo.css" media="screen" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="http://rightjs.org/hotlink/right.js"></script>
-    <script type="text/javascript" src="../src/rightjs-growl.js"></script>
+    <script type="text/javascript" src="../min/rightjs-growl-min.js"></script>
   </head>
   <body>
+    <h1>RightJS Growl Demo</h1>
+    <p>
+      Source available on <a href="http://github.com/fabiokr/rightjs-growl" title="Github" target="_blank">Github</a>
+    </p>
     <ul>
       <li><a href="#" class="regular-growl">Show regular growl</a></li>
       <li><a href="#" class="sticky-growl">Show sticky growl</a></li>
     </ul>
     <script type="text/javascript">
+      Growl.Options.transparentPng = true;
+
       "a.regular-growl".onClick(function(e){
         new Growl($E('div').html('<h3>I\'m not sticky</h3><p>So I\'ll disappear briefly!</p>'));
       });

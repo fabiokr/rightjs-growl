@@ -189,12 +189,13 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
    */
   var Growl = new Widget('DIV', {
     extend: {
-      version: '0.1',
+      version: '1.0',
 
       Options: {
         duration: 500,
         timer: 4000,
-        sticky: false
+        sticky: false,
+        transparentPng: false
       },
 
       i18n: {
@@ -251,9 +252,13 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
     * @return Growl this
     */
     _appear: function() {
-      this.setStyle({opacity: 0})
-        .insertTo(Growl.container)
-        .morph({opacity: 1}, {duration: this.options.duration});
+      if(Browser.IE && this.options.transparentPng) {
+        this.insertTo(Growl.container);
+      } else {
+        this.setStyle({opacity: 0})
+          .insertTo(Growl.container)
+          .morph({opacity: 1}, {duration: this.options.duration});
+      }
     },
 
     /**
@@ -262,17 +267,21 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
      * @return Growl this
      */
     _disappear: function() {
-      //hides the growl
-      this.morph({opacity: 0}, {
-        duration: this.options.duration,
-        onFinish: function() {
-          //morphs the growl so that the growl under it goes up smoothly
-          this.element.morph({height: '0'}, {
-            duration: this.element.options.duration,
-            onFinish: function(){this.element.remove();}
-          });
-        }
-      });
+      if(Browser.IE && this.options.transparentPng) {
+        this.remove();
+      } else {
+        //hides the growl
+        this.morph({opacity: 0}, {
+          duration: this.options.duration,
+          onFinish: function() {
+            //morphs the growl so that the growl under it goes up smoothly
+            this.element.morph({height: '0'}, {
+              duration: this.element.options.duration,
+              onFinish: function(){this.element.remove();}
+            });
+          }
+        });
+      }
     },
 
     //handles the close event

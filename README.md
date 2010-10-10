@@ -27,16 +27,21 @@ The $E function is a RightJS utility that creates an html element.
 
 Options should be passed like this: 
 
-    new Growl('My message', {option: value}));
-    $E('div').html('My message').growl({option: value});
+    new Growl('My message', {duration: 1000}));
+    $E('div').html('My message').growl({duration: 1000});
+
+Or, you can set them globally like this:
+
+    Growl.Options.duration = 1000
 
 The following options are available:
 
   - duration: the duration of the fade in/out animations (in miliseconds, default is 500)
   - timer: the time in that a non-sticky Growl will disappear (in miliseconds, default is 4000)
   - sticky: if this is a sticky Growl, it will not automatically disappear (default is false)
+  - transparentPng: if you are using transparent png images, you should set this to true (this will turn off fade effects on IE, because it cannot deal with transparent pngs and the opacity changes used on the fade effect. The default value is false) 
 
 ## Demo
 
 A demo is available on my website:
-<http://www.kreusch.com.br/demos/rightjs-growl/index.html>
+<http://www.kreusch.com.br/rightjs-growl/demo/index.html>
