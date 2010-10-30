@@ -1,8 +1,8 @@
 /**
- * Inline editor feature for RightJS
- *  http://rightjs.org/ui/in-edit
+ * Growl notification for RightJS
+ * http://www.kreusch.com.br/rightjs-growl/demo/index.html
  *
- * Copyright (C) 2009-2010 Nikolay Nemshilov
+ * Copyright (C) 2010 Fabio Kreusch
  */
 var Growl = RightJS.Growl = (function(document, RightJS) {
   /**
@@ -13,11 +13,6 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
    * Copyright (C) 2010 Nikolay Nemshilov
    */
 
-  /**
-   * In-Edit plugin initalization
-   *
-   * Copyright (C) 2010 Nikolay Nemshilov
-   */
   var R = RightJS,
       $ = RightJS.$,
       $w = RightJS.$w,
@@ -185,7 +180,7 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
   /**
    * The growl instance controller
    *
-   * Copyright (C) 2009-2010 Nikolay Nemshilov
+   * Copyright (C) 2010 Fabio Kreusch
    */
   var Growl = new Widget('DIV', {
     extend: {
@@ -296,7 +291,7 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
   /**
    * The element level growl extension
    *
-   * Copyright (C) 2009-2010 Nikolay Nemshilov
+   * Copyright (C) 2010 Fabio Kreusch
    */
   Element.include({
     /**
