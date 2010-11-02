@@ -13,7 +13,7 @@
   margin: 0 0 0 0;
 }
 
-.growl div.close {
+.growl a.close {
   position: absolute; 
   top: 12px; 
   right: 12px; 

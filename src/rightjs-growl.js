@@ -105,79 +105,6 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
   }
 
   /**
-   * A shared button unit.
-   * NOTE: we use the DIV units instead of INPUTS
-   *       so those buttons didn't interfere with
-   *       the user's tab-index on his page
-   *
-   * Copyright (C) 2010 Nikolay Nemshilov
-   */
-  var Button = new RightJS.Wrapper(RightJS.Element, {
-    /**
-     * Constructor
-     *
-     * @param String caption
-     * @param Object options
-     * @return void
-     */
-    initialize: function(caption, options) {
-      this.$super('div', options);
-      this._.innerHTML = caption;
-      this.addClass('rui-button');
-      this.on('selectstart', 'stopEvent');
-    },
-
-    /**
-     * Disasbles the button
-     *
-     * @return Button this
-     */
-    disable: function() {
-      return this.addClass('rui-button-disabled');
-    },
-
-    /**
-     * Enables the button
-     *
-     * @return Button this
-     */
-    enable: function() {
-      return this.removeClass('rui-button-disabled');
-    },
-
-    /**
-     * Checks if the button is disabled
-     *
-     * @return Button this
-     */
-    disabled: function() {
-      return this.hasClass('rui-button-disabled');
-    },
-
-    /**
-     * Checks if the button is enabled
-     *
-     * @return Button this
-     */
-    enabled: function() {
-      return !this.disabled();
-    },
-
-    /**
-     * Overloading the method, so it fired the events
-     * only when the button is active
-     *
-     * @return Button this
-     */
-    fire: function() {
-      if (this.enabled()) {
-        this.$super.apply(this, arguments);
-      }
-      return this;
-    }
-  });
-
-  /**
    * The growl instance controller
    *
    * Copyright (C) 2010 Fabio Kreusch
@@ -215,7 +142,7 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
       }
       
       this.insert([
-        this.close = new Button(Growl.i18n.Close, {title: Growl.i18n.Close, 'class': 'close'}),
+        this.close = $E('a', {class: 'close', 'href': '#close'}).html(Growl.i18n.Close),
         this.content = $E('div', {'class': 'content'}).html(content),
         this.bottom = $E('div', {'class': 'bottom'})
       ]);
