@@ -111,7 +111,7 @@ var Growl = RightJS.Growl = (function(document, RightJS) {
    */
   var Growl = new Widget('DIV', {
     extend: {
-      version: '1.0',
+      version: '1.1',
 
       Options: {
         duration: 500,
